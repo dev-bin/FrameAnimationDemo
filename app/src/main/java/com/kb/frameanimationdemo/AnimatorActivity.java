@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 /**
  * 属性动画
+ * Android开发艺术探索
  *
  * User: kanbin
  * Date: 2016/10/28
@@ -19,6 +20,7 @@ public class AnimatorActivity extends AppCompatActivity {
 
     private ImageView mImageView1;
     private ImageView mImageView2;
+    private ObjectAnimator mBackgroundColorAnim;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,22 +31,25 @@ public class AnimatorActivity extends AppCompatActivity {
         mImageView2 = (ImageView) findViewById(R.id.iv2);
     }
 
+    /**
+     * 实际开发中建议采用代码来实现属性动画，通过代码比较简单，并且很多时候一个属性的起始值无法提前确定，比如屏幕宽度
+     */
 
     /**
      * 属性动画
      * @param view
      */
     public void changeY(View view) {
-        ObjectAnimator.ofFloat(mImageView1, "translationY", mImageView1.getHeight()).start();
+        ObjectAnimator.ofFloat(mImageView1, "translationY", mImageView1.getHeight()).start(); // 这里没有传递初始值，只提供了结束值
     }
 
     public void changeBackgroundColor(View view) {
-        ObjectAnimator backgroundColor = ObjectAnimator.ofInt(mImageView2, "backgroundColor", 0xffff8080, 0xff8080ff);
-        backgroundColor.setDuration(3000);
-        backgroundColor.setEvaluator(new ArgbEvaluator());
-        backgroundColor.setRepeatCount(ValueAnimator.INFINITE);
-        backgroundColor.setRepeatMode(ValueAnimator.REVERSE);
-        backgroundColor.start();
+        mBackgroundColorAnim = ObjectAnimator.ofInt(mImageView2, "backgroundColor", 0xffff8080, 0xff8080ff);
+        mBackgroundColorAnim.setDuration(3000);
+        mBackgroundColorAnim.setEvaluator(new ArgbEvaluator());
+        mBackgroundColorAnim.setRepeatCount(ValueAnimator.INFINITE);
+        mBackgroundColorAnim.setRepeatMode(ValueAnimator.REVERSE);
+        mBackgroundColorAnim.start();
     }
 
     public void changeSet(View view) {
@@ -60,5 +65,11 @@ public class AnimatorActivity extends AppCompatActivity {
                 ObjectAnimator.ofFloat(mImageView2, "scaleY", 1, 0.5f)
         );
         animatorSet.setDuration(5 * 1000).start();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mBackgroundColorAnim.end();
     }
 }
