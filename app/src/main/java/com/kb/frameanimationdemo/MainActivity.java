@@ -1,5 +1,6 @@
 package com.kb.frameanimationdemo;
 
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,31 +11,27 @@ import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ImageView mImageView;
-    private AnimationDrawable mAnim;
-    private ImageView mImageView2;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mImageView = (ImageView) findViewById(R.id.iv1);
-        mAnim = (AnimationDrawable) mImageView.getBackground();
-
-        mImageView2 = (ImageView) findViewById(R.id.iv2);
     }
 
-    public void start(View view) {
-        mAnim.start();
+    public void gotoFrameAnimation(View view) {
+        Intent intent = new Intent(this, FrameAnimationActivity.class);
+        startActivity(intent);
     }
 
-    public void stop(View view) {
-        mAnim.stop();
+    public void gotoTweenAnimation(View view) {
+        Intent intent = new Intent(this, TweenActivity.class);
+        startActivity(intent);
+
     }
 
-    public void tween(View view) {
-        Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_tween);
-        mImageView2.startAnimation(animation);
+    public void gotoAnimator(View view) {
+        Intent intent = new Intent(this, AnimatorActivity.class);
+        startActivity(intent);
+
     }
 }
