@@ -13,7 +13,6 @@ import android.widget.ImageView;
  * 属性动画
  * Android开发艺术探索
  *
- * User: kanbin
  * Date: 2016/10/28
  */
 public class AnimatorActivity extends AppCompatActivity {
